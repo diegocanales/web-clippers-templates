@@ -1,18 +1,28 @@
 {
-    "schemaVersion": "0.1.0",
-    "name": "LinkedIn Job",
-    "behavior": "create",
-    "noteContentFormat": "{{selector:span.ui-label--accent-3 span[aria-hidden=\"true\"] | join(\"\\n- \") | prepend(\"- \") | trim}}\n\n\n\n{{selector:.jobs-description__content div:not(.visually-hidden) p[dir=\"ltr\"] | join | strip_newlines | replace(\"Este anuncio proviene de un tablón de empleos\\\\.\", \"\") | trim}}",
-    "properties": [
-      {
-        "name": "company",
-        "value": "{{selector:div.job-details-jobs-unified-top-card__company-name a}}",
-        "type": "text"
-      }
-    ],
-    "triggers": [
-      "https://www.linkedin.com/jobs/"
-    ],
-    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} - {{selector:div.job-details-jobs-unified-top-card__company-name a}} - {{selector:.job-details-jobs-unified-top-card__sticky-header-job-title span[aria-hidden=\"true\"] | trim}}",
-    "path": "resources/jobs/"
-  }
+  "schemaVersion": "0.1.0",
+  "name": "LinkedIn Job",
+  "behavior": "create",
+  "noteContentFormat": "## Modalidad\n\n- {{selector:.job-details-jobs-unified-top-card__job-insight span[aria-hidden]|strip_tags|join:\"\\n- \"}}\n\n## Descripción\n\n{{selector:.jobs-description__content div:not(.visually-hidden) p[dir=\"ltr\"] | join | strip_newlines | replace(\"Este anuncio proviene de un tablón de empleos\\\\.\", \"\") | trim}}\n\n## Aptitudes\n\n- {{selector:a.job-details-how-you-match__skills-section-descriptive-skill|split:\" · \"|join:\"\\n- \"}}",
+  "properties": [
+    {
+      "name": "url",
+      "value": "{{url}}",
+      "type": "text"
+    },
+    {
+      "name": "company",
+      "value": "{{selector:div.job-details-jobs-unified-top-card__company-name a}}",
+      "type": "text"
+    },
+    {
+      "name": "date",
+      "value": "{{date|date:\\\"YYYY-MM-DD\\\"}} ",
+      "type": "text"
+    }
+  ],
+  "triggers": [
+    "https://www.linkedin.com/jobs/"
+  ],
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} - {{selector:div.job-details-jobs-unified-top-card__company-name a}} - {{selector:.job-details-jobs-unified-top-card__sticky-header-job-title span[aria-hidden=\"true\"] | trim}}",
+  "path": "resources/jobs/"
+}
