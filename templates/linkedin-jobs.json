@@ -1,0 +1,12 @@
+{
+    "schemaVersion": "0.1.0",
+    "name": "LinkedIn Job",
+    "behavior": "create",
+    "noteContentFormat": "{{selector:span.ui-label--accent-3 span[aria-hidden=\"true\"] | join(\"\\n- \") | prepend(\"- \") | trim}}\n\n{{selector:.jobs-description__content div:not(.visually-hidden) p[dir=\"ltr\"] | join | strip_newlines | replace(\"Este anuncio proviene de un tablón de empleos\\\\.\", \"\") | trim}}",
+    "properties": [],
+    "triggers": [
+      "https://www.linkedin.com/jobs/*"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} - {{selector:.job-details-jobs-unified-top-card__sticky-header-job-title span[aria-hidden=\"true\"] | trim}}",
+    "path": "resources/jobs/"
+  }
