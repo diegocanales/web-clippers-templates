@@ -1,0 +1,64 @@
+{
+	"schemaVersion": "0.1.0",
+	"name": "getonboard",
+	"behavior": "create",
+	"noteContentFormat": "## Sobre la empresa\n\n{{selector:#job-body > .gb-landing-section .gb-container .mb4:nth-of-type(1) .gb-rich-txt|strip_tags|join:\"\\n\\n\"}}\n\n## Descripción del trabajo\n\n{{selector:#job-body > .gb-landing-section .gb-container .mb4:nth-of-type(2) .gb-rich-txt|strip_tags|join:\"\\n\\n\"}}\n\n## Calificaciones clave\n\n{{selector:#job-body > .gb-landing-section .gb-container .mb4:nth-of-type(3) .gb-rich-txt|strip_tags|join:\"\\n- \"}}\n\n\n## Tecnologías\n\n- {{selector:.gb-tags__item|strip_tags|join:\"\\n- \"}}\n\n## Beneficios\n\n- {{selector:.gb-fluid-boxes__item strong|strip_tags|join:\"\\n- \"}}",
+	"properties": [
+		{
+			"name": "profile",
+			"value": "{{selector:span[itemprop=\\\"title\\\"]}}",
+			"type": "text"
+		},
+		{
+			"name": "company",
+			"value": "{{selector:strong[itemprop=\\\"name\\\"]}}",
+			"type": "text"
+		},
+		{
+			"name": "level",
+			"value": "{{selector:span[itemprop=\\\"qualifications\\\"]}}",
+			"type": "text"
+		},
+		{
+			"name": "modalidad",
+			"value": "{{selector:h2 + p strong|strip_tags|trim|split:\\\" sólo\\\"|first}}",
+			"type": "text"
+		},
+		{
+			"name": "location",
+			"value": "{{selector:h2 + p + p|strip_tags|split:\\\"residir en\\\"|last|split:\\\"para postular\\\"|first|default:selector:h2 + p + p|strip_tags|split:\\\"oficina en\\\"|last|trim}}",
+			"type": "text"
+		},
+		{
+			"name": "salary",
+			"value": "{{selector:span[itemprop=\\\"baseSalary\\\"] .tooltipster-basic|strip_tags|replace:\\\"Sueldo bruto\\\":\\\"\\\"|trim}}",
+			"type": "text"
+		},
+		{
+			"name": "published",
+			"value": "{{selector:.semi-opaque-white time|strip_tags|trim}}",
+			"type": "date"
+		},
+		{
+			"name": "jornada",
+			"value": "{{selector:span[itemprop=\\\"employmentType\\\"]|strip_tags|replace:\\\"FULL_TIME\\\":\\\"Full time\\\"|replace:\\\"PART_TIME\\\":\\\"Part time\\\"|replace:\\\"CONTRACTOR\\\":\\\"Freelance\\\"|replace:\\\"INTERN\\\":\\\"Práctica\\\"|trim}}",
+			"type": "text"
+		},
+		{
+			"name": "tags",
+			"value": "job-profile",
+			"type": "multitext"
+		},
+		{
+			"name": "url",
+			"value": "{{url}}",
+			"type": "text"
+		}
+	],
+	"triggers": [
+		"https://www.getonbrd.com/jobs/"
+	],
+	"noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} - {{selector:strong[itemprop=\"name\"]}} - {{title}}",
+	"path": "resources/jobs/",
+	"context": "{{selectorHtml:.gb-landing-section.pb0}}"
+}
